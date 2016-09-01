@@ -1,0 +1,23 @@
+redis:
+    r1:
+        host: 127.0.0.1
+        port: 6379
+        db: 1
+        slaves:
+            - host: 127.0.0.1
+              port: 6379
+              db: 2
+            - host: 127.0.0.1
+              port: 6379
+              db: 3
+    r2:
+        host: 127.0.0.1
+        port: 6379
+        db: 4
+fluent:
+    - host: 127.0.0.1
+      port: 11211
+    - host: 127.0.0.2
+      port: 11211
+    - host: 127.0.0.3
+      port: 11211

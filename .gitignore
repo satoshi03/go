@@ -27,3 +27,7 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# project unique
+config.yml
+main.go

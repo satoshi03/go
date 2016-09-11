@@ -50,6 +50,8 @@ func main() {
 
 ### GET
 
+You can get value using connection in context
+
 ```.go
 import (
     "golang.org/x/net/context"
@@ -60,11 +62,14 @@ import (
 
 def getSomeData(ctx context.Context, redisname string) string {
     key := "hogehoge"
-    redis.GetCmd(ctx, redisname, key)
+    r, _ := redis.GetCmd(ctx, redisname, key)
+    return r
 }
 ```
 
-### GET
+### SET
+
+You can also set value using connection in context
 
 ```.go
 import (
@@ -74,7 +79,7 @@ import (
 )
 
 
-def getSomeData(ctx context.Context, redisname string) string {
+def setSomeData(ctx context.Context, redisname string) string {
     key := "hogehoge"
     val := "piyopiyo"
     redis.SetCmd(ctx, redisname, key, val)

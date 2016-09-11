@@ -4,22 +4,46 @@
 
 ## Redis
 
+### Configuration
+
+```.config.yml
+redis:
+    r1:
+        host: 127.0.0.1
+        port: 6379
+        db: 1
+    r2:
+        host: 127.0.0.1
+        port: 6379
+        db: 2
+        slaves:
+            - host: 127.0.0.1
+              port: 6379
+              db: 3
+            - host: 127.0.0.1
+              port: 6379
+              db: 4
+```
+
 ### Initialize
 
-```
+```.go
 import (
     "golang.org/x/net/context"
 
     "github.com/satoshi03/go/redis"
 )
 
+func main() {
+	conf := config.Read("config.yml")
+	// initialize context
+	ctx := context.Background()
 
-def initFunc(ctx context.Context) context.Context {
-    // redis connection to context
-    ctx :=  redis.Open(ctx, "127.0.0.1", "6379", "redis")
-    defer redis.Close()
+	// Redis
+	ctx = redisContext(ctx, conf.Redis[redisname])
+	defer redis.Close(ctx, redisname)
 
-    return ctx
+    // Do something
 }
 
 ```
@@ -35,17 +59,35 @@ import (
 )
 
 
-def getSomeData(ctx context.Context) string {
-
+def getSomeData(ctx context.Context, redisname string) string {
     key := "hogehoge"
-    cli := redis.GetCon(ctx,"redis")
-    value, _ := redis.GetCmd(cli, key)
-    return value
+    redis.GetCmd(ctx, redisname, key)
 }
 
 ```
 
-## Sample
+### GET
+
+```
+
+import (
+    "golang.org/x/net/context"
+
+    "github.com/satoshi03/go/redis"
+)
+
+
+def getSomeData(ctx context.Context, redisname string) string {
+    key := "hogehoge"
+    val := "piyopiyo"
+    redis.SetCmd(ctx, redisname, key, val)
+}
+
+```
+
+
+
+## Example
 
 ```.go
 package main
@@ -88,4 +130,3 @@ func fluentContext(ctx context.Context, conf config.Fluent) context.Context {
 	return ctx
 }
 ```
-

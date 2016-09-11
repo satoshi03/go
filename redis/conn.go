@@ -89,7 +89,9 @@ func newPool(host string, port, db int) *rlib.Pool {
 		},
 		TestOnBorrow: func(c rlib.Conn, t time.Time) error {
 			_, err := c.Do("PING")
-			log.Println("redis server connection error:", err)
+			if err != nil {
+				log.Println("redis server connection error:", err)
+			}
 			return err
 		},
 	}

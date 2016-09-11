@@ -5,16 +5,17 @@ import (
 	"time"
 
 	flib "github.com/fluent/fluent-logger-golang/fluent"
+	"github.com/satoshi03/go/config"
 	"golang.org/x/net/context"
 )
 
-func Open(ctx context.Context, host string, port int, key string) context.Context {
-	// TODO: implement async run by go routine
-	f, err := flib.New(flib.Config{FluentPort: port, FluentHost: host})
+func Open(ctx context.Context, fconf config.Fluent, fluentname string) context.Context {
+	// connection to fluent
+	f, err := flib.New(flib.Config{FluentPort: fconf.Port, FluentHost: fconf.Host})
 	if err != nil {
 		panic(err)
 	}
-	return context.WithValue(ctx, key, f)
+	return context.WithValue(ctx, fluentname, f)
 }
 
 func Send(ctx context.Context, key, tag string, data map[string]interface{}) {

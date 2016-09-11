@@ -2,7 +2,7 @@ package config
 
 type Config struct {
 	Redis  map[string]Redis `yaml:"redis"`
-	Fluent []Fluent         `yaml:"fluent"`
+	Fluent Fluent           `yaml:"fluent"`
 }
 
 type Redis struct {

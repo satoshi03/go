@@ -6,7 +6,7 @@
 
 ### Configuration
 
-```.config.yml
+```.yml
 redis:
     r1:
         host: 127.0.0.1
@@ -50,8 +50,7 @@ func main() {
 
 ### GET
 
-```
-
+```.go
 import (
     "golang.org/x/net/context"
 
@@ -63,13 +62,11 @@ def getSomeData(ctx context.Context, redisname string) string {
     key := "hogehoge"
     redis.GetCmd(ctx, redisname, key)
 }
-
 ```
 
 ### GET
 
-```
-
+```.go
 import (
     "golang.org/x/net/context"
 
@@ -82,7 +79,6 @@ def getSomeData(ctx context.Context, redisname string) string {
     val := "piyopiyo"
     redis.SetCmd(ctx, redisname, key, val)
 }
-
 ```
 
 

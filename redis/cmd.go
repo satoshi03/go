@@ -16,11 +16,14 @@ func GetString(ctx context.Context, redisname, key string) (string, error) {
 	return rlib.String(rconn.Do("GET", key))
 }
 
-func GetPackedValue(ctx context.Context, redisname, key string, out interface{}) interface{} {
+func GetPackedValue(ctx context.Context, redisname, key string, out interface{}) (interface{}, error) {
 	rconn := GetReadConn(ctx, redisname)
-	value, _ := rlib.Bytes(rconn.Do("GET", key))
-	if err := msgpack.Unmarshal(value, out); err != nil {
-		return nil
+	value, err := rlib.Bytes(rconn.Do("GET", key))
+	if err != nil {
+		return nil, err
 	}
-	return out
+	if err := msgpack.Unmarshal(value, out); err != nil {
+		return nil, err
+	}
+	return out, nil
 }

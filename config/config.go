@@ -3,6 +3,7 @@ package config
 type Config struct {
 	Redis  map[string]Redis `yaml:"redis"`
 	Fluent Fluent           `yaml:"fluent"`
+	Cookie Cookie           `yaml:"cookie"`
 }
 
 type Redis struct {
@@ -26,4 +27,9 @@ type RedisOption struct {
 type Fluent struct {
 	Host string `yaml:"host"`
 	Port int    `yaml:"port"`
+}
+
+type Cookie struct {
+	Name   string `yaml:"name"`
+	Domain string `yaml:"domain"`
 }

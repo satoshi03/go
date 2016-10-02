@@ -6,6 +6,11 @@ import (
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 )
 
+func Incr(ctx context.Context, redisname, key string) (int64, error) {
+	rconn := GetWriteConn(ctx, redisname)
+	return rlib.Int64(rconn.Do("INCR", key))
+}
+
 func SetString(ctx context.Context, redisname, key, val string) (string, error) {
 	rconn := GetWriteConn(ctx, redisname)
 	return rlib.String(rconn.Do("SET", key, val))
